@@ -3,6 +3,14 @@ export class Game {
     this.cardsImages = cardsImages.concat(cardsImages);
     this.board = board;
     this.board.onclick = this.onClick.bind(this);
+    this.animationDuration = 1250;
+
+    this.state = {
+      isBoardDisabled: false,
+      isFlipped: false,
+      firstCard: null,
+      secondCard: null,
+    };
   }
 
   init() {
@@ -31,10 +39,58 @@ export class Game {
   }
 
   onClick({ target }) {
-    if (!target.classList.contains('card__back')) {
+    if (
+      !target.classList.contains('card__back') ||
+      target.parentNode.classList.contains('card--hidden') ||
+      this.state.isBoardDisabled
+    ) {
       return;
     }
     const currentCard = target.parentNode;
     currentCard.classList.add('card--flip');
+    if (!this.state.isFlipped) {
+      this.state.isFlipped = true;
+      this.state.firstCard = currentCard;
+    } else {
+      this.state.secondCard = currentCard;
+      this.state.isBoardDisabled = true;
+      this.checkCards();
+    }
+  }
+
+  checkCards() {
+    const isPair =
+      this.state.firstCard.dataset.hero ===
+      this.state.secondCard.dataset.hero;
+    if (isPair) {
+      this.hideCards();
+    } else {
+      this.unFlipCards();
+    }
+  }
+
+  hideCards() {
+    setTimeout(() => {
+      this.state.firstCard.classList.add('card--hidden');
+      this.state.secondCard.classList.add('card--hidden');
+      this.resetState();
+    }, this.animationDuration);
+  }
+
+  unFlipCards() {
+    setTimeout(() => {
+      this.state.firstCard.classList.remove('card--flip');
+      this.state.secondCard.classList.remove('card--flip');
+      this.resetState();
+    }, this.animationDuration);
+  }
+
+  resetState() {
+    this.state = {
+      firstCard: null,
+      secondCard: null,
+      isFlipped: false,
+      isBoardDisabled: false,
+    };
   }
 }
