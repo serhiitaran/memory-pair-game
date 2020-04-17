@@ -10,10 +10,13 @@ export class Game {
       isFlipped: false,
       firstCard: null,
       secondCard: null,
+      pairs: 0,
     };
   }
 
   init() {
+    this.board.innerHTML = '';
+    this.state.pairs = 0;
     this.renderCards();
   }
 
@@ -74,6 +77,8 @@ export class Game {
       this.state.firstCard.classList.add('card--hidden');
       this.state.secondCard.classList.add('card--hidden');
       this.resetState();
+      this.state.pairs++;
+      this.checkWin();
     }, this.animationDuration);
   }
 
@@ -86,11 +91,17 @@ export class Game {
   }
 
   resetState() {
-    this.state = {
+    this.state = Object.assign({}, this.state, {
       firstCard: null,
       secondCard: null,
       isFlipped: false,
       isBoardDisabled: false,
-    };
+    });
+  }
+
+  checkWin() {
+    if (this.state.pairs == 6) {
+      this.init();
+    }
   }
 }
