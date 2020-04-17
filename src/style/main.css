@@ -2,7 +2,7 @@
 body {
   position: relative;
 
-  min-height: 100vh;
+  height: 100vh;
   margin: 0;
 
   background-image: url(../img/board-mobile.jpg);
@@ -15,7 +15,7 @@ body {
   top: 50%;
   left: 50%;
 
-  width: 275px;
+  width: 225px;
 
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
@@ -28,7 +28,7 @@ body {
   -webkit-box-pack: justify;
   justify-content: space-between;
   width: 100%;
-  padding: 12.5px 0;
+  padding: 0;
 
   -webkit-transition: 1s;
           transition: 1s;
@@ -39,8 +39,8 @@ body {
 
   display: block;
   box-sizing: border-box;
-  width: 80px;
-  height: 120px;
+  width: 65px;
+  height: 95px;
   margin-top: 12.5px;
 
   background-size: cover;
@@ -93,29 +93,31 @@ body {
 
 @media (min-width: 360px) {
   .main {
-    width: 307px;
+    width: 250px;
   }
   .card {
-    width: 94px;
-    height: 135px;
+    width: 70px;
+    height: 110px;
   }
 }
 
 @media (min-width: 400px) {
   .main {
-    width: 325px;
+    width: 280px;
   }
   .card {
-    width: 100px;
-    height: 150px;
+    width: 80px;
+    height: 120px;
   }
 }
 
 @media (min-width: 600px) {
   .main {
-    width: 475px;
+    width: 435px;
   }
   .card {
+    width: 90px;
+    height: 135px;
     margin-top: 25px;
   }
   .card:nth-of-type(4) {
@@ -125,11 +127,11 @@ body {
 
 @media (min-width: 750px) {
   .main {
-    width: 535px;
+    width: 455px;
   }
   .card {
-    width: 115px;
-    height: 170px;
+    width: 95px;
+    height: 140px;
   }
 }
 
@@ -142,10 +144,10 @@ body {
 
 @media (min-width: 1400px) {
   .main {
-    width: 575px;
+    width: 495px;
   }
   .card {
-    width: 125px;
-    height: 182.5px;
+    width: 105px;
+    height: 155px;
   }
 }
