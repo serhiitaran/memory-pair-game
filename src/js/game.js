@@ -1,8 +1,18 @@
 export class Game {
-  constructor(cardsImages, board) {
+  constructor(
+    cardsImages,
+    board,
+    gameStartModal,
+    gameStartButton,
+    gameStartTitle,
+  ) {
     this.cardsImages = cardsImages.concat(cardsImages);
     this.board = board;
-    this.board.onclick = this.onClick.bind(this);
+    this.board.onclick = this.onBoardClick.bind(this);
+    this.gameStartModal = gameStartModal;
+    this.gameStartButton = gameStartButton;
+    this.gameStartTitle = gameStartTitle;
+    this.gameStartButton.onclick = this.onButtonClick.bind(this);
     this.animationDuration = 1250;
 
     this.state = {
@@ -16,8 +26,15 @@ export class Game {
 
   init() {
     this.board.innerHTML = '';
-    this.state.pairs = 0;
+    this.board.classList.add('board--disabled');
+    this.gameStartModal.classList.remove('modal--disabled');
+  }
+
+  onButtonClick() {
+    this.gameStartModal.classList.add('modal--disabled');
     this.renderCards();
+    this.board.classList.remove('board--disabled');
+    this.state.pairs = 0;
   }
 
   renderCards() {
@@ -41,7 +58,7 @@ export class Game {
     return cards.sort(() => 0.5 - Math.random());
   }
 
-  onClick({ target }) {
+  onBoardClick({ target }) {
     if (
       !target.classList.contains('card__back') ||
       target.parentNode.classList.contains('card--hidden') ||
