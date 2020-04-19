@@ -118,6 +118,8 @@ export class Game {
 
   checkWin() {
     if (this.state.pairs == 6) {
+      this.gameStartTitle.innerText = 'You’ve won this one!';
+      this.gameStartButton.innerText = 'Play again';
       this.init();
     }
   }
