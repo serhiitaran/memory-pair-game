@@ -33,7 +33,6 @@ export class Game {
 
   applyThemeStyles() {
     const theme = this.theme;
-    document.body.style.backgroundImage = `url(${theme.boardMobile})`;
     document.body.style.fontFamily = theme.fontFamily;
 
     this.gameStartTitle.style.color = theme.titleColor;
