@@ -1,12 +1,13 @@
 export class Game {
   constructor(
-    cardsImages,
+    theme,
     board,
     gameStartModal,
     gameStartButton,
     gameStartTitle,
   ) {
-    this.cardsImages = cardsImages.concat(cardsImages);
+    this.theme = theme;
+    this.cardsImages = theme.cards.concat(theme.cards);
     this.board = board;
     this.board.onclick = this.onBoardClick.bind(this);
     this.gameStartModal = gameStartModal;
@@ -24,10 +25,36 @@ export class Game {
     };
   }
 
+  setTheme(theme) {
+    this.theme = theme;
+    this.cardsImages = theme.cards.concat(theme.cards);
+    this.applyThemeStyles();
+  }
+
+  applyThemeStyles() {
+    const theme = this.theme;
+    document.body.style.backgroundImage = `url(${theme.boardMobile})`;
+    document.body.style.fontFamily = theme.fontFamily;
+
+    this.gameStartTitle.style.color = theme.titleColor;
+    this.gameStartTitle.style.textShadow = theme.textShadow;
+
+    this.gameStartButton.style.background = theme.buttonColor;
+    this.gameStartButton.style.color = theme.buttonTextColor;
+    this.gameStartButton.style.borderColor = theme.buttonBorder;
+
+    document.documentElement.style.setProperty('--card-back-image', `url(${theme.cardBack})`);
+    document.documentElement.style.setProperty('--board-image', `url(${theme.board})`);
+    document.documentElement.style.setProperty('--board-mobile-image', `url(${theme.boardMobile})`);
+    document.documentElement.style.setProperty('--cursor-image', `url(${theme.cursor})`);
+  }
+
   init() {
     this.board.innerHTML = '';
     this.board.classList.add('board--disabled');
     this.gameStartModal.classList.remove('modal--disabled');
+    this.gameStartTitle.innerText = this.theme.titleText;
+    this.applyThemeStyles();
   }
 
   onButtonClick() {
@@ -38,7 +65,7 @@ export class Game {
   }
 
   renderCards() {
-    const cards = this.cardsImages.map(this.createCard);
+    const cards = this.cardsImages.map((cardImg) => this.createCard(cardImg));
     this.shuffleCards(cards);
     this.board.append(...cards);
   }
@@ -49,7 +76,7 @@ export class Game {
     card.dataset.hero = `${cardImg}`;
     card.innerHTML = `
 			<div class="card__back"></div>
-			<img class="card__front" src="./src/img/${cardImg}.jpg">
+			<img class="card__front" src="${this.theme.imgPath}${cardImg}.jpg">
 		`;
     return card;
   }
@@ -118,7 +145,7 @@ export class Game {
 
   checkWin() {
     if (this.state.pairs == 6) {
-      this.gameStartTitle.innerText = 'You’ve won this one!';
+      this.gameStartTitle.innerText = 'You\u2019ve won this one!';
       this.gameStartButton.innerText = 'Play again';
       this.init();
     }

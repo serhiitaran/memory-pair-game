@@ -1,25 +1,31 @@
 import { Game } from './game.js';
+import { themes } from './themes.js';
 
-const cardsImages = [
-  'arya',
-  'сersei',
-  'deyeneris',
-  'jaime',
-  'snow',
-  'tyrion',
-];
 const board = document.querySelector('.board');
 const gameStartModal = document.querySelector('.modal');
 const gameStartButton = document.querySelector('.modal__button');
 const gameStartTitle = document.querySelector('.modal__title');
+const themeSwitcher = document.querySelector('.theme-switcher');
 
-export default new Game(
-  cardsImages,
+const game = new Game(
+  themes.got,
   board,
   gameStartModal,
   gameStartButton,
   gameStartTitle,
 );
+
+if (themeSwitcher) {
+  themeSwitcher.addEventListener('change', (e) => {
+    const selectedTheme = themes[e.target.value];
+    if (selectedTheme) {
+      game.setTheme(selectedTheme);
+      game.init();
+    }
+  });
+}
+
+export default game;
 
 export const fixViewportHeight = () => {
   let vh = window.innerHeight * 0.01;
