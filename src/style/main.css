@@ -6,6 +6,14 @@
   src: url("../font/GameofThrones.ttf") format("truetype");
 }
 
+@font-face {
+  font-style: normal;
+  font-weight: normal;
+  font-family: "SWFont";
+
+  src: url("../font/StarWars.ttf") format("truetype");
+}
+
 body {
   position: relative;
 
@@ -14,7 +22,7 @@ body {
 
   font-family: "GOTFont";
 
-  background-image: url(../img/board-mobile.jpg);
+  background-image: var(--board-mobile-image, url(../img/board-mobile.jpg));
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover ;
@@ -97,7 +105,7 @@ body {
 }
 
 .card__back {
-  background-image: url(../img/card-back.jpg);
+  background-image: var(--card-back-image, url(../img/card-back.jpg));
 }
 
 .card__front {
@@ -145,6 +153,33 @@ body {
 
 .modal--disabled {
   display: none;
+}
+
+.theme-nav {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
+}
+
+.theme-switcher {
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #d8b88d;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid #d8b88d;
+  border-radius: 8px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.theme-switcher option {
+  background: #1a1a1a;
+  color: #d8b88d;
 }
 
 @media (min-width: 360px) {
@@ -221,12 +256,12 @@ body {
 
 @media (min-width: 1000px) {
   body {
-    background-image: url(../img/board.jpg);
-    cursor: url(../img/cursor.png), auto;
+    background-image: var(--board-image, url(../img/board.jpg));
+    cursor: var(--cursor-image, url(../img/cursor.png)), auto;
   }
 
   .modal__button {
-    cursor: url(../img/cursor.png), auto;
+    cursor: var(--cursor-image, url(../img/cursor.png)), auto;
   }
   
 }
